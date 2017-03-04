@@ -4,6 +4,8 @@
 # Copyright:: Copyright (c) 2012-2013 Vesa-Pekka Palmu
 # License::		Licensed under GPL v3, see LICENSE.md
 
+MEMCACHE_HOST = ENV['MEMCACHE_HOST'] || 'localhost'
+
 
 Isk::Application.configure do
 	# Settings specified here will take precedence over those in config/application.rb
@@ -21,7 +23,7 @@ Isk::Application.configure do
 	config.action_controller.perform_caching = true
 
 	#Memcached using dalli_store
-	config.cache_store = :mem_cache_store, 'localhost',
+	config.cache_store = :mem_cache_store, MEMCACHE_HOST,
 		{ :namespace => "ISK", :expires_in => 5.minutes, :compress => true }
 
 	# Don't log served assets

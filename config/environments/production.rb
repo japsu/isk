@@ -4,6 +4,8 @@
 # Copyright:: Copyright (c) 2012-2013 Vesa-Pekka Palmu
 # License::		Licensed under GPL v3, see LICENSE.md
 
+MEMCACHE_HOST = ENV['MEMCACHE_HOST'] || 'localhost'
+
 
 Isk::Application.configure do
 	# Settings specified here will take precedence over those in config/application.rb
@@ -62,7 +64,7 @@ Isk::Application.configure do
 	# config.logger = ActiveSupport::TaggedLogging.new(SyslogLogger.new)
 
 	# Use a different cache store in production
-	config.cache_store = :dalli_store, 'localhost',
+	config.cache_store = :dalli_store, MEMCACHE_HOST,
 		{ :namespace => "ISK", :expires_in => 15.minutes, :compress => true }
 
 	# Enable serving of images, stylesheets, and JavaScripts from an asset server

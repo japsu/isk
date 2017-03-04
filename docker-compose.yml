@@ -1,0 +1,33 @@
+version: '2'
+services:
+  web:
+    build: .
+    ports:
+      - 3000:3000
+    links:
+      - postgres
+      - redis
+      - memcache
+    volumes:
+      - .:/usr/src/app
+    environment:
+      DATABASE_URL: postgresql://isk_development:isk_development@postgres/isk_development
+      REDIS_HOST: redis
+      MEMCACHE_HOST: memcache
+  postgres:
+    image: postgres
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: isk_development
+      POSTGRES_PASSWORD: isk_development
+      POSTGRES_DB: isk_development      
+  redis:
+    image: redis
+    volumes:
+      - redis-data:/data
+  memcache:
+    image: memcached
+volumes:
+  postgres-data: {}
+  redis-data: {}
